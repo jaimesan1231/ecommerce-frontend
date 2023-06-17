@@ -1,0 +1,15 @@
+.card-skeleton {
+  width: 100%;
+}
+.card-skeleton__image {
+  width: 80%;
+  margin: 0 auto;
+}
+.card-skeleton__text {
+  display: grid;
+  grid-template-columns: auto 70px;
+  gap: 20px;
+  width: 80%;
+  margin: 0 auto;
+  padding: 10px;
+}

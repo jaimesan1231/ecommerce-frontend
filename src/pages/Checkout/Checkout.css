@@ -1,0 +1,112 @@
+.checkout {
+  display: grid;
+  grid-template-columns: auto 400px;
+  grid-template-rows: auto auto;
+  width: 95%;
+  margin: 50px auto;
+  gap: 20px;
+  max-width: 1280px;
+}
+.checkout__cart-section {
+  width: 100%;
+  border: 1px solid;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0 20px;
+  border-radius: 20px;
+}
+.checkout__payment-section {
+  width: 100%;
+  height: auto;
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  border: 1px solid;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0 20px 20px 20px;
+  border-radius: 20px;
+  align-self: self-start;
+}
+.checkout__delivery-section {
+  width: 100%;
+  border: 1px solid;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0 20px 20px 20px;
+  border-radius: 20px;
+  position: relative;
+}
+.checkout__section-title {
+  padding: 20px 0;
+}
+.checkout__items li:last-child {
+  border-bottom: none;
+}
+
+.checkout__items li:first-child {
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.checkout__form {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.checkout__label {
+  grid-column: span 2;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 500;
+}
+.checkout__input {
+  grid-column: span 2;
+  padding: 10px;
+  outline: none;
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  width: 100%;
+  border-radius: 5px;
+}
+.checkout__input::placeholder {
+  color: #d9d9d9;
+}
+.checkout__label_size_half {
+  grid-column: span 1;
+}
+.checkout__input_size_half {
+  grid-column: span 1;
+}
+.checkout__subtotal {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+.checkout__subtotal p {
+  font-weight: 500;
+}
+
+.checkout__button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: #f7ca00;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.checkout__delivery-section p {
+  margin-top: 8px;
+}
+.checkout__edit-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 100px;
+  border-radius: 20px;
+  padding: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.checkout__edit-button:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}

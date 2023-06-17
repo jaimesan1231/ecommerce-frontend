@@ -1,0 +1,109 @@
+.product {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin: 60px;
+}
+.product__image-container {
+  max-width: 600px;
+  width: 50%;
+  min-width: 300px;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 10px 0px;
+  display: flex;
+  align-items: center;
+}
+.product__image {
+  width: 100%;
+  position: absolute;
+  aspect-ratio: 10/8;
+  object-fit: contain;
+  object-position: center;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  object-fit: contain;
+  height: 90%;
+}
+.product__image-container::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  left: 0;
+  top: 0;
+  opacity: 0.04;
+}
+
+.product__info {
+  max-width: 600px;
+  width: 50%;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.product__title {
+  font-size: 28px;
+}
+.product__price {
+  font-size: 28px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 20px 0px;
+}
+.product__counter-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+.counter {
+  width: 110px;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.04);
+  border-radius: 20px;
+  align-items: center;
+  overflow: hidden;
+}
+
+.counter__button {
+  cursor: pointer;
+  object-fit: contain;
+  object-position: center;
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  padding: 10px 10px;
+}
+.product__button {
+  border: none;
+  background: #f7ca00;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #616061;
+  padding: 10px 20px;
+  max-width: 200px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.product__button:hover {
+  background-color: #ffd733;
+}
+.product__delivery {
+  display: grid;
+  grid-template-columns: 80px auto;
+  place-items: center;
+  gap: 10px;
+}
+.product__delivery span {
+  justify-self: left;
+}
