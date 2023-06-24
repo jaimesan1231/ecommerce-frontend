@@ -1,0 +1,16 @@
+.search-results__title {
+  width: 90%;
+  margin: 10px auto;
+  font-size: 28px;
+}
+.sort-section {
+  width: 90%;
+  margin: 10px auto;
+
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.sort-section__dropdown {
+  width: 200px;
+}

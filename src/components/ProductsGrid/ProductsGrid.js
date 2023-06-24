@@ -4,6 +4,7 @@ import "./ProductGrid.css";
 import CardSkeleton from "../CardSkeleton/CardSkeleton";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import Dropdown from "../Dropdown/Dropdown";
 
 const ProductsGrid = ({ data = [], isLoading }) => {
   return (

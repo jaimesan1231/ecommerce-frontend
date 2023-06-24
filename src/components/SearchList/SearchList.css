@@ -1,0 +1,12 @@
+.searchlist {
+  position: absolute;
+  background-color: green;
+  width: 100%;
+  list-style: none;
+  top: 100%;
+}
+
+.searchlist__item {
+  background-color: blue;
+  padding: 15px 20px;
+}

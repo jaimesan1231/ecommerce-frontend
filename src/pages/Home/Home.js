@@ -3,46 +3,46 @@ import bannerImg from "../../images/homeBanner2.png";
 import ProductsGrid from "../../components/ProductsGrid/ProductsGrid";
 
 import "./Home.css";
-import { getProducts } from "../../utils/api";
 import { getDocs, limit, orderBy, query } from "firebase/firestore";
 import { productsCollection } from "../../db/firebase";
+import { fetchPopularProducts } from "../../utils/api";
 
 const Home = () => {
   const [products, setProducts] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const fetchPpopularProducts = async () => {
+    const getPopularProducts = async () => {
       setIsLoading(true);
-      try {
-        const q = query(
-          productsCollection,
-          orderBy("rating.count", "desc"),
-          limit(20)
-        );
-        const querySnapshot = await getDocs(q);
-        const popularProducts = querySnapshot.docs.map((doc) => {
-          return {
-            ...doc.data(),
-            id: doc.id,
-          };
-        });
-        setIsLoading(false);
-        console.log(popularProducts);
-        setProducts(popularProducts);
-      } catch (error) {
-        setIsLoading(false);
-        console.log("Error al obtener los productos:", error);
-      }
+      const popularProducts = await fetchPopularProducts(20);
+      setIsLoading(false);
+      setProducts(popularProducts);
     };
-    fetchPpopularProducts();
-    // setIsLoading(true);
-    // getProducts()
-    //   .then((data) => {
+    getPopularProducts();
+    // const fetchPpopularProducts = async () => {
+    //   setIsLoading(true);
+    //   try {
+    //     const q = query(
+    //       productsCollection,
+    //       orderBy("rating.count", "desc"),
+    //       limit(20)
+    //     );
+    //     const querySnapshot = await getDocs(q);
+    //     const popularProducts = querySnapshot.docs.map((doc) => {
+    //       return {
+    //         ...doc.data(),
+    //         id: doc.id,
+    //       };
+    //     });
     //     setIsLoading(false);
-    //     setProducts(data);
-    //   })
-    //   .catch((err) => console.log(err));
+    //     console.log(popularProducts);
+    //     setProducts(popularProducts);
+    //   } catch (error) {
+    //     setIsLoading(false);
+    //     console.log("Error al obtener los productos:", error);
+    //   }
+    // };
+    // fetchPpopularProducts();
   }, []);
 
   return (

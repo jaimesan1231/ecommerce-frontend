@@ -46,6 +46,13 @@
   padding: 15px 20px;
 }
 
+.searchbar__results {
+  position: absolute;
+  background-color: green;
+  width: 100%;
+  list-style: none;
+  top: 100%;
+}
 @media screen and (max-width: 768px) {
   .searchbar__container {
     grid-row: 2;

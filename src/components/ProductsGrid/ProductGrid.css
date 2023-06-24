@@ -7,6 +7,7 @@
   margin-top: 20px;
   place-items: center;
 }
+
 @media screen and (max-width: 1200px) {
   .product-container {
     grid-template-columns: repeat(3, 1fr);

@@ -22,7 +22,10 @@ const Product = () => {
         const productRef = doc(productsCollection, productId);
         const docSnap = await getDoc(productRef);
         if (docSnap.exists()) {
-          setCurrentProduct(docSnap.data());
+          setCurrentProduct({
+            ...docSnap.data(),
+            id: productId,
+          });
         } else {
           navigate("/");
         }
@@ -43,6 +46,7 @@ const Product = () => {
     }
   };
   const handleAddButton = () => {
+    console.log(currentProduct);
     addToCart(currentProduct, quantity);
   };
   return (

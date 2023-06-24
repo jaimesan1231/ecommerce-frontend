@@ -16,18 +16,15 @@ const useGlobalState = () => {
       if (user) {
         const userData = await getUserData(user.uid);
         if (userData) {
-          console.log("update");
           let savedCart = {
             items: [],
             subTotal: 0,
           };
           if (localStorage.getItem("cart")) {
             savedCart = JSON.parse(localStorage.getItem("cart"));
-            console.log(savedCart);
           } else {
             console.log("no hay nada en el local");
           }
-          console.log(savedCart);
 
           const {
             name,
@@ -39,7 +36,6 @@ const useGlobalState = () => {
           } = userData;
           console.log(cart);
           console.log(name, lastname);
-          console.log(savedCart);
           const mergedItems = [...cart.items, ...savedCart.items].reduce(
             (acc, item) => {
               const foundItem = acc.find((i) => i.id == item.id);
@@ -53,17 +49,13 @@ const useGlobalState = () => {
             },
             []
           );
-          console.log(mergedItems);
           const newCart = {
             cart: {
               items: [...mergedItems],
               subTotal: cart.subTotal + savedCart.subTotal,
             },
           };
-          console.log(newCart);
           updateCart(user.uid, newCart);
-
-          console.log("se acutalizo el auth");
           localStorage.removeItem("cart");
           setUser({ ...userData, id: user.uid });
           setCart(newCart.cart);
@@ -87,8 +79,6 @@ const useGlobalState = () => {
   }, []);
   useEffect(() => {
     const savedCart = localStorage.getItem("cart");
-    console.log(savedCart);
-    console.log("aeeeeeeeeeeeeee");
     if (savedCart) {
       setCart(JSON.parse(savedCart));
     }
@@ -123,8 +113,6 @@ const useGlobalState = () => {
     );
     if (existingProduct) {
       const price = product.price * quantity;
-      console.log(existingProduct);
-      console.log("ya estaba");
       const newCart = [...cart.items];
       const updatedCart = newCart.map((item) => {
         if (item.id === existingProduct.id) {
@@ -141,7 +129,6 @@ const useGlobalState = () => {
         items: [...updatedCart],
       });
     } else {
-      console.log("nuevo");
       const price = product.price * quantity;
       const newProduct = {
         ...product,

@@ -18,12 +18,7 @@ const SignIn = () => {
       if (userData) {
         const { name, lastname } = userData;
         console.log(userData);
-        console.log(name, lastname);
         const previousPath = location.state?.from || "/";
-        console.log(previousPath);
-        console.log(location);
-        console.log(location.state);
-        console.log(location.state?.routes);
         navigate(previousPath);
       }
     }
@@ -34,7 +29,6 @@ const SignIn = () => {
       ...data,
       [name]: value,
     });
-    console.log(data);
   };
   return (
     <div className="signin">

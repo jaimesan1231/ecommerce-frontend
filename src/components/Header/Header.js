@@ -35,7 +35,6 @@ const Header = () => {
       try {
         const querySnapshot = await getDocs(categoriesCollection);
         const data = querySnapshot.docs.map((doc) => doc.data());
-        console.log(data);
         setCategories(data);
       } catch (error) {
         console.log("Error al obtener las categorias: ", error);

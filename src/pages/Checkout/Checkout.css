@@ -36,6 +36,10 @@
 .checkout__section-title {
   padding: 20px 0;
 }
+.checkout__items {
+  max-height: 403px;
+  overflow-y: scroll;
+}
 .checkout__items li:last-child {
   border-bottom: none;
 }

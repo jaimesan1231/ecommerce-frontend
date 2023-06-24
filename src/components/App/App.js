@@ -11,6 +11,8 @@ import SignIn from "../../pages/SignIn/SignIn";
 import SignUp from "../../pages/SignUp/SignUp";
 import "./App.css";
 import ProtectedRoute from "../ProtectedRoute";
+import SearchResults from "../../pages/SearchResults/SearchResults";
+import Account from "../../pages/Account/Account";
 
 function App() {
   return (
@@ -27,8 +29,9 @@ function App() {
           </Route>
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
-
           <Route path="/signin" element={<SignIn />} />
+          <Route path="/search-results" element={<SearchResults />} />
+          <Route path="/account" element={<Account />} />
         </Routes>
         <Footer />
       </div>

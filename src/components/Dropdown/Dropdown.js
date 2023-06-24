@@ -13,8 +13,8 @@ const Dropdown = ({ title, items, onSelect }) => {
     setIsOpen(false);
   };
   const handleClick = (item) => {
-    selectItem(item);
-    onSelect(item);
+    selectItem(item.text);
+    onSelect(item.value);
   };
 
   return (
@@ -39,7 +39,7 @@ const Dropdown = ({ title, items, onSelect }) => {
                 onClick={() => handleClick(item)}
                 className="dropdown__option"
               >
-                <span>{item}</span>
+                <span>{item.text}</span>
               </button>
             </li>
           ))}
