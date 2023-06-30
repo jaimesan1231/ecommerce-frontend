@@ -13,6 +13,7 @@ import "./App.css";
 import ProtectedRoute from "../ProtectedRoute";
 import SearchResults from "../../pages/SearchResults/SearchResults";
 import Account from "../../pages/Account/Account";
+import Orders from "../../pages/Orders/Orders";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/search-results" element={<SearchResults />} />
           <Route path="/account" element={<Account />} />
+          <Route path="/orders" element={<Orders />} />
         </Routes>
         <Footer />
       </div>

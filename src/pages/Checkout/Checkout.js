@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "./Checkout.css";
 import { AppContext } from "../../context/AppContext";
 import CartItem from "../../components/CartItem/CartItem";
+import Input from "../../components/Input/Input";
 
 const Checkout = () => {
   const { cart, user } = useContext(AppContext);
@@ -78,6 +79,8 @@ const Checkout = () => {
 
       <div className="checkout__delivery-section">
         <h2 className="checkout__section-title">Delivery Information</h2>
+
+        <Input />
         <h4>Wade Warren</h4>
         <p>4140 Parker RD. AllewTown, New Mexico 31134</p>
         <p>+447700960054</p>

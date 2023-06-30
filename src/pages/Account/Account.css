@@ -3,4 +3,100 @@
   margin: 50px auto;
   gap: 20px;
   max-width: 1280px;
+  display: flex;
+}
+
+.account__info {
+  flex: 1;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.04),
+    0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.account__info-section {
+  display: grid;
+  grid-template-columns: auto 100px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  gap: 10px;
+  padding: 10px 0;
+  align-items: center;
+}
+.account__info-title {
+  grid-column: span 2;
+  font-size: 12px;
+}
+.account__button {
+  border-radius: 20px;
+  padding: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.account__button:hover {
+  opacity: 0.8;
+}
+.account__edit-title {
+  grid-column: span 2;
+}
+.account__input-container {
+  grid-column: span 2;
+}
+.account__input-container {
+  width: 100%;
+  height: 60px;
+  position: relative;
+  overflow: hidden;
+}
+.account__input {
+  outline: none;
+  padding: 0 20px;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  height: 49px;
+  margin-top: 11px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+
+  border-radius: 8px;
+}
+.account__label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.account__label span {
+  position: absolute;
+  bottom: 39px;
+  left: 20px;
+  padding: 0 5px;
+  background-color: #fff;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.account__buttons-container {
+  grid-column: span 2;
+  display: grid;
+  gap: 10px;
+  justify-self: end;
+  grid-template-columns: 100px 100px;
+}
+.account__button_type_cancel {
+  background-color: #fff;
+  padding: 10px;
+  font-weight: 700;
+}
+
+.account__button_type_success {
+  background-color: #f7ca00;
+  padding: 10px;
+  font-weight: 700;
 }
