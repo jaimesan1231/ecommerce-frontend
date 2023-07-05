@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./CartItem.css";
-import { AppContext } from "../../context/AppContext";
+import useCartStore from "../../store/cartStore";
 
 const CartItem = ({ item }) => {
-  const { removeFromCart } = useContext(AppContext);
+  const removeFromCart = useCartStore((state) => state.removeFromCart);
   const { title, price, image, quantity } = item;
   return (
     <li className="item">

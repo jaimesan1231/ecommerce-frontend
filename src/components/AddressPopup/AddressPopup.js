@@ -1,14 +1,21 @@
 import React, { useEffect } from "react";
-import { Form, Formik, useFormik } from "formik";
+import { Form, Formik } from "formik";
+import { AddressSchema } from "../../Schemas";
 import Input from "../Input/Input";
 import "./AddressPopup.css";
+import addIcon from "../../images/add.svg";
+import useUserStore from "../../store/userStore";
 
-const AddressPopup = () => {
+const AddressPopup = ({ onClose }) => {
+  const addAddress = useUserStore((state) => state.addAddress);
   const handleChange = () => {
     console.log("aea");
   };
   useEffect(() => {
     document.body.classList.add("no-overflow");
+    return () => {
+      document.body.classList.remove("no-overflow");
+    };
   }, []);
   return (
     <div className="popup__container">
@@ -24,47 +31,46 @@ const AddressPopup = () => {
             zip: "",
             phone: "",
           }}
+          validationSchema={AddressSchema}
+          onSubmit={(value) => {
+            console.log(value);
+            addAddress(value);
+          }}
         >
-          <Form>
-            <Input
-              name="country"
-              label="Country"
-              onChange={handleChange}
-              value=""
-            />
-            <Input
-              name="name"
-              label="Full name"
-              onChange={handleChange}
-              value=""
-            />
+          <Form noValidate className="popup__form">
+            <Input name="country" label="Country" onChange={handleChange} />
+
+            <Input name="name" label="Full name" onChange={handleChange} />
+
             <Input
               name="address"
               label="Street address"
               onChange={handleChange}
-              value=""
             />
-            <Input name="city" label="City" onChange={handleChange} value="" />
+
+            <Input name="city" label="City" onChange={handleChange} />
+
             <Input
               name="state"
               label="State / Province / Region"
               onChange={handleChange}
-              value=""
             />
-            <Input
-              name="zip"
-              label="Zip code"
-              onChange={handleChange}
-              value=""
-            />
-            <Input
-              name="state"
-              label="Phone number"
-              onChange={handleChange}
-              value=""
-            />
+
+            <Input name="zip" label="Zip code" onChange={handleChange} />
+
+            <Input name="phone" label="Phone number" onChange={handleChange} />
+
+            <button type="submit" className="popup__button">
+              Add address
+            </button>
           </Form>
         </Formik>
+        <img
+          src={addIcon}
+          alt=""
+          className="popup__close-icon"
+          onClick={onClose}
+        />
       </div>
     </div>
   );

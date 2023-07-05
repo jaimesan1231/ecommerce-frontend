@@ -38,7 +38,7 @@
 }
 .checkout__items {
   max-height: 403px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .checkout__items li:last-child {
   border-bottom: none;
@@ -51,8 +51,19 @@
 .checkout__form {
   width: 100%;
   display: grid;
+
+  gap: 18px;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  /* grid-template-areas:
+    "email ."
+    "name *"
+    "number *"
+    "expiry cvc"; */
+}
+.checkout__form .input__section:nth-child(1),
+.checkout__form .input__section:nth-child(2),
+.checkout__form .input__section:nth-child(3) {
+  grid-column: span 2;
 }
 .checkout__label {
   grid-column: span 2;
@@ -96,21 +107,19 @@
   font-size: 16px;
   cursor: pointer;
 }
-.checkout__delivery-section p {
-  margin-top: 8px;
-}
-.checkout__edit-button {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 100px;
-  border-radius: 20px;
-  padding: 5px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.checkout__address-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-.checkout__edit-button:hover {
-  background-color: rgba(0, 0, 0, 0.08);
+.checkout__address-button {
+  border: none;
+  background-color: transparent;
+  color: #007185;
+  width: max-content;
+  cursor: pointer;
+}
+.checkout__address-button:hover {
+  text-decoration: underline;
 }

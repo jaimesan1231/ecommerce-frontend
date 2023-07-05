@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import CartItem from "../../components/CartItem/CartItem";
-import { AppContext } from "../../context/AppContext";
 import { Link } from "react-router-dom";
 import cartIcon from "../../images/cart.svg";
 import "./Cart.css";
+import useCartStore from "../../store/cartStore";
+
 const Cart = () => {
-  const { cart } = useContext(AppContext);
+  const cart = useCartStore((state) => state.cart);
+  const resetCart = useCartStore((state) => state.resetCart);
   return (
     <div className="cart">
       {cart.items.length > 0 ? (
@@ -25,6 +27,7 @@ const Cart = () => {
             <Link className="cart__button" to="/checkout">
               Proceed to Checkout
             </Link>
+            {/* <button onClick={resetCart}>reset</button> */}
           </div>
         </>
       ) : (

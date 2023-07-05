@@ -9,3 +9,12 @@ export const updateCart = async (userId, data) => {
     console.log("Error al actualizar carrito", error);
   }
 };
+
+export const updateUser = async (userId, data) => {
+  try {
+    const userRef = doc(usersCollection, userId);
+    await updateDoc(userRef, data);
+  } catch (error) {
+    console.log("Error al actualizar user", error);
+  }
+};

@@ -9,9 +9,10 @@ import Rating from "../../components/Rating/Rating";
 import { AppContext } from "../../context/AppContext";
 import { doc, getDoc } from "firebase/firestore";
 import { productsCollection } from "../../db/firebase";
+import useCartStore from "../../store/cartStore";
 
 const Product = () => {
-  const { addToCart } = useContext(AppContext);
+  const addToCart = useCartStore((state) => state.addToCart);
   const [currentProduct, setCurrentProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const { productId } = useParams();

@@ -1,0 +1,21 @@
+.address-card {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  height: 266px;
+  padding: 15px;
+  width: 320px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.address-card__list {
+}
+.address-card__item {
+  font-size: 14px;
+  line-height: 20px;
+}
+.address-card__buttons {
+  display: flex;
+  gap: 15px;
+}

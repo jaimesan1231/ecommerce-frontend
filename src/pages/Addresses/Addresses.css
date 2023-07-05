@@ -1,0 +1,45 @@
+.addresses {
+  width: 95%;
+  margin: 50px auto;
+  gap: 20px;
+  max-width: 1280px;
+  display: flex;
+}
+
+.addresses__container {
+  flex: 1;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.04),
+    0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.addresses__title {
+  align-self: flex-start;
+}
+
+.addresses__info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 10px;
+}
+.addresses__add {
+  border: 3px dotted rgba(0, 0, 0, 0.3);
+  height: 266px;
+  width: 320px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+  cursor: pointer;
+  user-select: none;
+}
+.addresses__add-icon {
+  width: 60px;
+  filter: grayscale(100%);
+}

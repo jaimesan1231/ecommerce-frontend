@@ -17,7 +17,6 @@ const Orders = () => {
         <Link to="/" className="orders__button">
           Start shopping
         </Link>
-        <AddressPopup />
       </div>
     </div>
   );

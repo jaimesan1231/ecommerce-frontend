@@ -4,14 +4,45 @@
   left: 0;
   bottom: 0;
   right: 0;
-
   z-index: 10;
   display: grid;
   place-items: center;
   background-color: rgba(0, 0, 0, 0.8);
 }
 .popup {
-  width: 500px;
+  width: 600px;
   padding: 30px;
   background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-radius: 16px;
+  position: relative;
+}
+.popup__form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.popup__button {
+  background-color: #f7ca00;
+  border: none;
+  padding: 15px;
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+}
+.popup__button:hover {
+  opacity: 0.8;
+}
+.popup__close-icon {
+  position: absolute;
+  top: 25px;
+  width: 35px;
+  right: 30px;
+  transform: rotate(45deg);
+  cursor: pointer;
 }

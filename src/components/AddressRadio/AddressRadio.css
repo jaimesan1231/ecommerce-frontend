@@ -1,0 +1,15 @@
+.checkout__address-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.checkout__address-name {
+  font-weight: 600;
+}
+.checkout__address-item_selected {
+  background-color: rgba(247, 202, 0, 0.1);
+  border: 1px solid #f7ca00;
+}

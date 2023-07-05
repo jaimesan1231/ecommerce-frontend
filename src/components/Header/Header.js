@@ -12,8 +12,11 @@ import { getDocs } from "firebase/firestore";
 import { categoriesCollection } from "../../db/firebase";
 import { signOutUser } from "../../utils/auth";
 import Logo from "../../images/multimart.png";
+import useCartStore from "../../store/cartStore";
+import useUserStore from "../../store/userStore";
 const Header = () => {
-  const { cart, user } = useContext(AppContext);
+  const cart = useCartStore((state) => state.cart);
+  const user = useUserStore((state) => state.user);
   const [openSidebar, setOpenSidebar] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const [categories, setCategories] = useState();
@@ -23,6 +26,7 @@ const Header = () => {
     navigate(`/category/${category}`);
     handleToggleSidebar();
   };
+
   const handleToggleMenu = () => {
     setOpenMenu(!openMenu);
   };
@@ -70,10 +74,10 @@ const Header = () => {
         >
           {user ? (
             <>
-              <Link>
+              <Link to="/account">
                 <li>account</li>
               </Link>
-              <Link>
+              <Link to="/orders">
                 <li>orders</li>
               </Link>
               <li onClick={signOutUser}>sign out</li>

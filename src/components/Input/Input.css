@@ -3,6 +3,7 @@
   height: 60px;
   position: relative;
   overflow: hidden;
+  grid-area: auto;
 }
 .input__label {
   position: absolute;
@@ -21,7 +22,7 @@
   background-color: #fff;
   font-size: 16px;
   transition: all 0.3s ease;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .input {
@@ -31,9 +32,12 @@
   width: 100%;
   height: 49px;
   margin-top: 11px;
-  border: 1px solid black;
+
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 8px;
+}
+.input__error {
+  border: 1px solid #de1c24;
 }
 .input:focus + .input__label span,
 .input:valid + .input__label span {
@@ -45,4 +49,9 @@
 }
 .input::placeholder {
   content: "";
+}
+.input__error-message {
+  font-size: 12px;
+  color: #de1c24;
+  margin-top: 5px;
 }

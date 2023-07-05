@@ -1,11 +1,40 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Checkout.css";
-import { AppContext } from "../../context/AppContext";
 import CartItem from "../../components/CartItem/CartItem";
+import useCartStore from "../../store/cartStore";
+import useUserStore from "../../store/userStore";
+import AddressRadio from "../../components/AddressRadio/AddressRadio";
+import AddressPopup from "../../components/AddressPopup/AddressPopup";
+import { Form, Formik } from "formik";
 import Input from "../../components/Input/Input";
+import { PaymentSchema } from "../../Schemas";
+import Loading from "../../components/Loading/Loading";
 
 const Checkout = () => {
-  const { cart, user } = useContext(AppContext);
+  const cart = useCartStore((state) => state.cart);
+  const user = useUserStore((state) => state.user);
+  const [selectedAddress, setSelectedAddress] = useState("");
+  const [openPopup, setOpenPopup] = useState(false);
+  const [confirmOrder, setConfirmOrder] = useState(false);
+  useEffect(() => {
+    if (user.addresses) {
+      setSelectedAddress(user.addresses[0].id);
+    }
+  }, []);
+  const handleChangeAddress = (addressId) => {
+    setSelectedAddress(addressId);
+  };
+  const handleChange = () => {
+    console.log("aea");
+  };
+  const handleSubmit = () => {
+    setConfirmOrder(true);
+    setTimeout(() => {
+      console.log("termino los dos segundos");
+      setConfirmOrder(false);
+    }, 4000);
+  };
+
   console.log(user);
   return (
     <div className="checkout">
@@ -19,74 +48,71 @@ const Checkout = () => {
       </div>
       <div className="checkout__payment-section">
         <h2 className="checkout__section-title">Payment Details</h2>
-        <form action="#" className="checkout__form">
-          <label htmlFor="" className="checkout__label">
-            Email
-          </label>
-          <input
-            type="text"
-            placeholder="Type here..."
-            className="checkout__input"
-          />
-          <label htmlFor="" className="checkout__label">
-            Card Holder Name
-          </label>
-          <input
-            type="text"
-            placeholder="Type here..."
-            className="checkout__input"
-          />
-          <label htmlFor="" className="checkout__label">
-            Card Number
-          </label>
-          <input
-            type="text"
-            placeholder="Type here..."
-            className="checkout__input"
-          />
-          <label
-            htmlFor=""
-            className="checkout__label checkout__label_size_half"
-          >
-            Expiry
-          </label>
-          <label
-            htmlFor=""
-            className="checkout__label checkout__label_size_half"
-          >
-            CVC
-          </label>
-          <input
-            type="text"
-            placeholder="Type here..."
-            className="checkout__input checkout__input_size_half"
-          />
+        <Formik
+          initialValues={{
+            email: "",
+            name: "",
+            card: "",
+            expiry: "",
+            cvc: "",
+          }}
+          validationSchema={PaymentSchema}
+          onSubmit={(value) => {
+            console.log(value);
+            // addAddress(value);
+          }}
+        >
+          <Form noValidate className="checkout__form">
+            <Input name="email" label="Email" onChange={handleChange} />
 
-          <input
-            type="text"
-            placeholder="Type here..."
-            className="checkout__input checkout__input_size_half"
-          />
-        </form>
+            <Input
+              name="name"
+              label="Card Holder Name"
+              onChange={handleChange}
+            />
+
+            <Input name="card" label="Card Number" onChange={handleChange} />
+
+            <Input
+              name="expiry"
+              label="Expiry"
+              onChange={handleChange}
+              placeholder="mm/aa"
+            />
+
+            <Input name="cvc" label="CVC" onChange={handleChange} />
+          </Form>
+        </Formik>
         <div className="checkout__subtotal">
           <p>Sub Total</p>
           <p>${cart.subTotal.toFixed(2)}</p>
         </div>
-        <button className="checkout__button">
+        <button className="checkout__button" onClick={handleSubmit}>
           Pay ${cart.subTotal.toFixed(2)}
         </button>
       </div>
 
       <div className="checkout__delivery-section">
         <h2 className="checkout__section-title">Delivery Information</h2>
-
-        <Input />
-        <h4>Wade Warren</h4>
-        <p>4140 Parker RD. AllewTown, New Mexico 31134</p>
-        <p>+447700960054</p>
-        <p>Warren@mail.com</p>
-        <button className="checkout__edit-button">Edit</button>
+        <div className="checkout__address-list">
+          {user.addresses &&
+            user.addresses.map((address, index) => (
+              <AddressRadio
+                address={address}
+                onChange={handleChangeAddress}
+                isSelected={selectedAddress === address.id ? true : false}
+              />
+            ))}
+          <button
+            className="checkout__address-button"
+            onClick={() => setOpenPopup(true)}
+          >
+            Add Address
+          </button>
+        </div>
+        {openPopup && <AddressPopup onClose={() => setOpenPopup(false)} />}
       </div>
+      {confirmOrder && <Loading />}
     </div>
   );
 };
