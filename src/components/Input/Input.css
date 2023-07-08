@@ -55,3 +55,10 @@
   color: #de1c24;
   margin-top: 5px;
 }
+.input__icon {
+  position: absolute;
+  width: 30px;
+  right: 10px;
+  top: 20px;
+  cursor: pointer;
+}

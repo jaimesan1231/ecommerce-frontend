@@ -1,100 +1,53 @@
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import "./SignUp.css";
-import { auth, usersCollection } from "../../db/firebase";
-import { doc, setDoc } from "firebase/firestore";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Form, Formik } from "formik";
+import Input from "../../components/Input/Input";
+import { RegisterSchema } from "../../Schemas";
+import { registerUser } from "../../utils/auth";
 
 const SignUp = () => {
-  const [data, setData] = useState({
-    name: "",
-    lastname: "",
-    email: "",
-    password: "",
-  });
-  const handleSignUp = async (e) => {
-    e.preventDefault();
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        data.email,
-        data.password
-      );
-      const user = userCredential.user;
-      await setDoc(doc(usersCollection, user.uid), {
-        name: data.name,
-        lastname: data.lastname,
-      });
-      console.log("User registered:", user);
-    } catch (error) {
-      console.log("Error en el registro:", error);
-    }
-    console.log(data);
+  const navigate = useNavigate();
+  const [showError, setShowError] = useState(false);
+  const handleSignUp = async (data, onError, onSuccess) => {
+    await registerUser(data, onError, onSuccess);
   };
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData({
-      ...data,
-      [name]: value,
-    });
-    console.log(data);
+  const handleError = () => {
+    setShowError(true);
+    setTimeout(() => {
+      setShowError(false);
+    }, 4000);
   };
+
   return (
     <div className="signup">
       <h2 className="signup__title">Create an account</h2>
-      <form action="#" className="signup__form">
-        <div className="signup__form-section">
-          <input
-            type="text"
-            className="signup__input"
-            name="name"
-            required
-            onChange={handleChange}
-          />
-          <label htmlFor="name" className="signup__label">
-            <span>Name</span>
-          </label>
-        </div>
-        <div className="signup__form-section">
-          <input
-            type="text"
-            className="signup__input"
-            name="lastname"
-            required
-            onChange={handleChange}
-          />
-          <label htmlFor="lastname" className="signup__label">
-            <span>LastName</span>
-          </label>
-        </div>
-        <div className="signup__form-section">
-          <input
-            type="text"
-            className="signup__input"
-            name="email"
-            required
-            onChange={handleChange}
-          />
-          <label htmlFor="email" className="signup__label">
-            <span>Email</span>
-          </label>
-        </div>
-        <div className="signup__form-section">
-          <input
-            type="password"
-            className="signup__input"
-            name="password"
-            required
-            onChange={handleChange}
-          />
-          <label htmlFor="password" className="signup__label">
-            <span>Password</span>
-          </label>
-        </div>
-      </form>
-      <button className="signup__button" onClick={handleSignUp}>
-        Create account
-      </button>
+      {showError && <p className="signup__error">Email already in use</p>}
+      <Formik
+        initialValues={{
+          email: "",
+          password: "",
+          name: "",
+          lastname: "",
+        }}
+        validationSchema={RegisterSchema}
+        onSubmit={(values) => {
+          handleSignUp(
+            values,
+            () => handleError(),
+            () => navigate("/")
+          );
+        }}
+      >
+        <Form className="signup__form">
+          <Input name="name" label="Name" />
+          <Input name="lastname" label="Last name" />
+          <Input name="email" label="Email" />
+          <Input name="password" label="Password" type="password" />
+          <button className="signup__button">Create account</button>
+        </Form>
+      </Formik>
+
       <p className="signin__register">
         Already have an account?{" "}
         <Link to="/signin" className="signin__link">

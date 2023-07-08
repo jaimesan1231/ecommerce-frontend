@@ -1,8 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import Rating from "../Rating/Rating";
 import "./ProductCard.css";
 import { Link } from "react-router-dom";
-import { AppContext } from "../../context/AppContext";
 import useCartStore from "../../store/cartStore";
 
 const ProductCard = ({ product }) => {
@@ -10,7 +9,6 @@ const ProductCard = ({ product }) => {
   const addToCart = useCartStore((state) => state.addToCart);
 
   const handleAddButton = () => {
-    console.log(product);
     addToCart(product);
   };
   return (

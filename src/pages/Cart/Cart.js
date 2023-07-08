@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import CartItem from "../../components/CartItem/CartItem";
 import { Link } from "react-router-dom";
 import cartIcon from "../../images/cart.svg";
@@ -7,7 +7,6 @@ import useCartStore from "../../store/cartStore";
 
 const Cart = () => {
   const cart = useCartStore((state) => state.cart);
-  const resetCart = useCartStore((state) => state.resetCart);
   return (
     <div className="cart">
       {cart.items.length > 0 ? (
@@ -16,7 +15,7 @@ const Cart = () => {
             <h1 className="cart__title">Shopping Cart</h1>
             <ul className="cart__list">
               {cart.items.map((item) => (
-                <CartItem item={item} />
+                <CartItem item={item} cart={true} key={item.id} />
               ))}
             </ul>
           </div>
@@ -27,7 +26,6 @@ const Cart = () => {
             <Link className="cart__button" to="/checkout">
               Proceed to Checkout
             </Link>
-            {/* <button onClick={resetCart}>reset</button> */}
           </div>
         </>
       ) : (
@@ -42,7 +40,7 @@ const Cart = () => {
           </div>
           <h2 className="empty-cart__title">Your Cart is Empty</h2>
           <Link to="/">
-            <button className=" empty-cart__button">Go Home</button>
+            <button className=" empty-cart__button">Start shopping</button>
           </Link>
         </div>
       )}

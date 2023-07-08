@@ -35,7 +35,6 @@ export const searchProductByName = async (searchTerm) => {
         id: doc.id,
       };
     });
-    console.log(searchResult);
     return searchResult;
   } catch (error) {
     console.log("Error al obtener los productos:", error);

@@ -12,7 +12,11 @@ const SearchResult = ({ result, onClick, searchTerm }) => {
   return (
     <ul className={`search-result__container`}>
       {result.map((item) => (
-        <li className="search-result" onMouseDown={() => onClick(item.id)}>
+        <li
+          className="search-result"
+          onMouseDown={() => onClick(item.id)}
+          key={item.id}
+        >
           <img src={item.image} alt="" className="search-result__image" />
           <div className="search-result__info">
             <p className="search-result__title">{item.title}</p>
@@ -20,10 +24,10 @@ const SearchResult = ({ result, onClick, searchTerm }) => {
           </div>
         </li>
       ))}
-      {result.length == 5 && (
+      {result.length === 5 && (
         <div className="search-result__link" onMouseDown={handleSubmit}>
           <img src={searchIcon} alt="" />
-          <p>search all "{`${searchTerm}`}"</p>
+          <p className="search-result__all">search all "{`${searchTerm}`}"</p>
         </div>
       )}
     </ul>

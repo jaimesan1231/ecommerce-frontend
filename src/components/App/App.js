@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-import { AppProvider } from "../../context/AppContext";
 import Home from "../../pages/Home/Home";
 import Product from "../../pages/Product/Product";
 import Cart from "../../pages/Cart/Cart";
@@ -9,13 +8,13 @@ import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import SignIn from "../../pages/SignIn/SignIn";
 import SignUp from "../../pages/SignUp/SignUp";
-import "./App.css";
 import ProtectedRoute from "../ProtectedRoute";
 import SearchResults from "../../pages/SearchResults/SearchResults";
 import Account from "../../pages/Account/Account";
 import Orders from "../../pages/Orders/Orders";
 import Addresses from "../../pages/Addresses/Addresses";
 import useAuthStateListener from "../../hooks/useAuthStateListener";
+import "./App.css";
 
 function App() {
   useAuthStateListener();
@@ -32,11 +31,17 @@ function App() {
         </Route>
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
-        <Route path="/signin" element={<SignIn />} />
+
         <Route path="/search-results" element={<SearchResults />} />
-        <Route path="/account" element={<Account />} />
-        <Route path="/orders" element={<Orders />} />
-        <Route path="/addresses" element={<Addresses />} />
+        <Route path="/account" element={<ProtectedRoute />}>
+          <Route path="/account" element={<Account />} />
+        </Route>
+        <Route path="/orders" element={<ProtectedRoute />}>
+          <Route path="/orders" element={<Orders />} />
+        </Route>
+        <Route path="/addresses" element={<ProtectedRoute />}>
+          <Route path="/addresses" element={<Addresses />} />
+        </Route>
       </Routes>
       <Footer />
     </div>

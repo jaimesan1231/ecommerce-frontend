@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import bannerImg from "../../images/homeBanner2.png";
 import ProductsGrid from "../../components/ProductsGrid/ProductsGrid";
-
-import "./Home.css";
-import { getDocs, limit, orderBy, query } from "firebase/firestore";
-import { productsCollection } from "../../db/firebase";
 import { fetchPopularProducts } from "../../utils/api";
+import "./Home.css";
 
 const Home = () => {
   const [products, setProducts] = useState();
@@ -19,37 +16,13 @@ const Home = () => {
       setProducts(popularProducts);
     };
     getPopularProducts();
-    // const fetchPpopularProducts = async () => {
-    //   setIsLoading(true);
-    //   try {
-    //     const q = query(
-    //       productsCollection,
-    //       orderBy("rating.count", "desc"),
-    //       limit(20)
-    //     );
-    //     const querySnapshot = await getDocs(q);
-    //     const popularProducts = querySnapshot.docs.map((doc) => {
-    //       return {
-    //         ...doc.data(),
-    //         id: doc.id,
-    //       };
-    //     });
-    //     setIsLoading(false);
-    //     console.log(popularProducts);
-    //     setProducts(popularProducts);
-    //   } catch (error) {
-    //     setIsLoading(false);
-    //     console.log("Error al obtener los productos:", error);
-    //   }
-    // };
-    // fetchPpopularProducts();
+    window.scrollTo(0, 0);
   }, []);
-
   return (
     <div className="home">
       <div className="banner">
         <div className="banner__text">
-          <h1 className="banner__title">Welcome to Ecommerce</h1>
+          <h1 className="banner__title">Welcome to Multimart</h1>
           <p className="banner__subtitle">
             Discover our amazing deals and high-quality products
           </p>

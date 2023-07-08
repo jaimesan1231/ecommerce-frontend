@@ -16,8 +16,9 @@ const Sidebar = ({ open, categories = [], onSelect, onClose }) => {
           />
         </div>
         <ul className="sidebar__list">
-          {categories.map((category) => (
+          {categories.map((category, index) => (
             <li
+              key={`category-${index}`}
               className="sidebar__item"
               onClick={() => onSelect(category.name)}
             >

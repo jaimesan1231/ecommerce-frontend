@@ -1,93 +1,100 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import "./Account.css";
+import useUserStore from "../../store/userStore";
+import { Form, Formik } from "formik";
+import Input from "../../components/Input/Input";
+import {
+  EmailSchema,
+  FullNameSchema,
+  PasswordSchema,
+  PhoneSchema,
+} from "../../Schemas";
+import { changeEmail, changePassword } from "../../utils/user";
+import { reauthenticate } from "../../utils/auth";
+import { useLocation } from "react-router-dom";
 
 const Account = () => {
+  const user = useUserStore((state) => state.user);
+  const editUser = useUserStore((state) => state.editUser);
+  const location = useLocation();
+  const openState = location.state?.open || false;
   const [userInfo, setUserInfo] = useState({
-    name: {
-      value: "Jaime",
-      state: "save",
-    },
-    lastname: {
-      value: "Salvatierra Sanchez",
-      state: "save",
-    },
+    name: "save",
+    lastname: "save",
+    email: "save",
+    phone: "save",
+    password: "save",
+  });
+  const [errorInfo, setErrorInfo] = useState({
     email: {
-      value: "jaime_salvatierra31@hotmail.com",
-      state: "save",
-    },
-    phone: {
-      value: "Add phone number",
-      state: "save",
+      error: false,
+      text: "",
     },
     password: {
-      value: "**********",
-      state: "save",
+      error: false,
+      text: "",
     },
   });
-  const [originalUserInfo, setOriginalUserInfo] = useState();
-  const handleEdit = (field, secondField) => {
-    if (userInfo[field].state === "save") {
-      console.log("era save");
-      const originalInfo = {
-        ...originalUserInfo,
-        [field]: userInfo[field].value,
-      };
-      if (secondField) {
-        originalInfo[secondField] = userInfo[secondField].value;
-      }
-      setOriginalUserInfo(originalInfo);
+  const [openNavbar, setOpenNavbar] = useState(false);
+  useEffect(() => {
+    if (openState) {
+      setOpenNavbar(true);
+    }
+  }, []);
+  const handleNavbar = () => {
+    setOpenNavbar(!openNavbar);
+  };
+
+  const handleEdit = (field) => {
+    if (userInfo[field] === "save") {
       setUserInfo((prevState) => ({
         ...prevState,
-        [field]: {
-          ...prevState[field],
-          state: "edit",
-        },
+        [field]: "edit",
       }));
     } else {
-      console.log(userInfo[field]);
       setUserInfo((prevState) => ({
         ...prevState,
-        [field]: {
-          ...prevState[field],
-          state: "save",
-        },
+        [field]: "save",
       }));
     }
   };
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUserInfo((prevState) => ({
-      ...prevState,
-      [name]: {
-        state: "edit",
-        value: value,
-      },
-    }));
-  };
-  const handleCancelChanges = (field) => {
-    console.log(originalUserInfo[field]);
-    console.log(userInfo);
-    setUserInfo((prevState) => ({
+  const handleError = (field, message) => {
+    setErrorInfo((prevState) => ({
       ...prevState,
       [field]: {
-        state: "save",
-        value: originalUserInfo[field],
+        error: true,
+        text: message,
       },
     }));
+    setTimeout(() => {
+      setErrorInfo((prevState) => ({
+        ...prevState,
+        [field]: {
+          error: false,
+          text: "",
+        },
+      }));
+    }, 4000);
   };
+
   return (
     <div className="account">
-      <Navbar />
+      <Navbar isOpen={openNavbar} onClose={handleNavbar} />
       <div className="account__info">
-        <h2 className="account__title"> Your personal information</h2>
+        <div className="account__header">
+          <button onClick={handleNavbar} className="account__menu">
+            Menu
+          </button>
+          <h2 className="account__title"> Account</h2>
+        </div>
 
         <div className="account__info-section">
-          {userInfo["name"].state === "save" ? (
+          {userInfo["name"] === "save" ? (
             <>
               <p className="account__info-title">Full name</p>
               <p className="account__info-field">
-                {userInfo["name"].value} {userInfo["lastname"].value}
+                {user["name"]} {user["lastname"]}
               </p>
               <button
                 className="account__button"
@@ -99,58 +106,48 @@ const Account = () => {
           ) : (
             <>
               <h3 className="account__edit-title">Edit full name</h3>
-              <div className="account__input-container">
-                <input
-                  type="text"
-                  className="account__input"
-                  name="name"
-                  required
-                  value={userInfo["name"].value}
-                  onChange={handleChange}
-                />
-                <label htmlFor="name" className="account__label">
-                  <span>First name</span>
-                </label>
-              </div>
-              <div className="account__input-container">
-                <input
-                  type="text"
-                  className="account__input"
-                  name="lastname"
-                  required
-                  value={userInfo["lastname"].value}
-                  onChange={handleChange}
-                />
-                <label htmlFor="lastname" className="account__label">
-                  <span>Last name</span>
-                </label>
-              </div>
-              <div className="account__buttons-container">
-                <button
-                  className="account__button account__button_type_cancel"
-                  onClick={() => {
-                    handleCancelChanges("name");
-                    handleCancelChanges("lastname");
-                  }}
-                >
-                  Cancel
-                </button>
-                <button
-                  className="account__button account__button_type_success"
-                  onClick={() => handleEdit("name")}
-                >
-                  Save
-                </button>
-              </div>
+              <Formik
+                initialValues={{
+                  name: user.name,
+                  lastname: user.lastname,
+                }}
+                validationSchema={FullNameSchema}
+                onSubmit={(value) => {
+                  editUser(value);
+                  handleEdit("name");
+                }}
+              >
+                <Form className="account__form">
+                  <Input name="name" label="First name" />
+                  <Input name="lastname" label="First name" />
+                  <div className="account__buttons-container">
+                    <button
+                      className="account__button account__button_type_cancel"
+                      onClick={() => {
+                        handleEdit("name");
+                      }}
+                      type="button"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="account__button account__button_type_success"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </Form>
+              </Formik>
             </>
           )}
         </div>
 
         <div className="account__info-section">
-          {userInfo["email"].state === "save" ? (
+          {userInfo["email"] === "save" ? (
             <>
               <p className="account__info-title">Email address</p>
-              <p className="account__info-field">{userInfo["email"].value}</p>
+              <p className="account__info-field">{user["email"]}</p>
               <button
                 className="account__button "
                 onClick={() => handleEdit("email")}
@@ -161,45 +158,63 @@ const Account = () => {
           ) : (
             <>
               <h3 className="account__edit-title">Edit email address</h3>
-              <div className="account__input-container">
-                <input
-                  type="text"
-                  className="account__input"
-                  name="email"
-                  required
-                  value={userInfo["email"].value}
-                  onChange={handleChange}
-                />
-                <label htmlFor="email" className="account__label">
-                  <span>Email address</span>
-                </label>
-              </div>
-
-              <div className="account__buttons-container">
-                <button
-                  className="account__button account__button_type_cancel"
-                  onClick={() => {
-                    handleCancelChanges("email");
-                  }}
-                >
-                  Cancel
-                </button>
-                <button
-                  className="account__button account__button_type_success"
-                  onClick={() => handleEdit("email")}
-                >
-                  Save
-                </button>
-              </div>
+              <Formik
+                initialValues={{
+                  email: user.email,
+                  password: "",
+                }}
+                validationSchema={EmailSchema}
+                onSubmit={(value) => {
+                  editUser(value);
+                  changeEmail(
+                    user.email,
+                    value.email,
+                    value.password,
+                    (field, text) => handleError(field, text),
+                    () => handleEdit("email")
+                  );
+                }}
+              >
+                <Form className="account__form">
+                  {errorInfo["email"].error && (
+                    <p className="account__error">{errorInfo["email"].text} </p>
+                  )}
+                  <Input name="email" label="Email address" />
+                  <Input
+                    name="password"
+                    label="Current password"
+                    type="password"
+                  />
+                  <div className="account__buttons-container">
+                    <button
+                      className="account__button account__button_type_cancel"
+                      onClick={() => {
+                        handleEdit("email");
+                      }}
+                      type="button"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="account__button account__button_type_success"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </Form>
+              </Formik>
             </>
           )}
         </div>
 
         <div className="account__info-section">
-          {userInfo["phone"].state === "save" ? (
+          {userInfo["phone"] === "save" ? (
             <>
               <p className="account__info-title">Phone number</p>
-              <p className="account__info-field">{userInfo["phone"].value}</p>
+              <p className="account__info-field">
+                {user["phone"] || " Add phone number"}
+              </p>
               <button
                 className="account__button"
                 onClick={() => handleEdit("phone")}
@@ -210,47 +225,47 @@ const Account = () => {
           ) : (
             <>
               <h3 className="account__edit-title">Edit phone number</h3>
-              <div className="account__input-container">
-                <input
-                  type="text"
-                  className="account__input"
-                  name="phone"
-                  required
-                  value={userInfo["phone"].value}
-                  onChange={handleChange}
-                />
-                <label htmlFor="phone" className="account__label">
-                  <span>Phone number</span>
-                </label>
-              </div>
+              <Formik
+                initialValues={{
+                  phone: user.phone || "",
+                }}
+                validationSchema={PhoneSchema}
+                onSubmit={(value) => {
+                  editUser(value);
+                  handleEdit("phone");
+                }}
+              >
+                <Form className="account__form">
+                  <Input name="phone" label="Phone number" />
 
-              <div className="account__buttons-container">
-                <button
-                  className="account__button account__button_type_cancel"
-                  onClick={() => {
-                    handleCancelChanges("phone");
-                  }}
-                >
-                  Cancel
-                </button>
-                <button
-                  className="account__button account__button_type_success"
-                  onClick={() => handleEdit("phone")}
-                >
-                  Save
-                </button>
-              </div>
+                  <div className="account__buttons-container">
+                    <button
+                      className="account__button account__button_type_cancel"
+                      onClick={() => {
+                        handleEdit("phone");
+                      }}
+                      type="button"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="account__button account__button_type_success"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </Form>
+              </Formik>
             </>
           )}
         </div>
 
         <div className="account__info-section">
-          {userInfo["password"].state === "save" ? (
+          {userInfo["password"] === "save" ? (
             <>
               <p className="account__info-title">Password</p>
-              <p className="account__info-field">
-                {userInfo["password"].value}
-              </p>
+              <p className="account__info-field">*********</p>
               <button
                 className="account__button"
                 onClick={() => handleEdit("password")}
@@ -261,36 +276,58 @@ const Account = () => {
           ) : (
             <>
               <h3 className="account__edit-title">Edit password</h3>
-              <div className="account__input-container">
-                <input
-                  type="text"
-                  className="account__input"
-                  name="password"
-                  required
-                  value={userInfo["password"].value}
-                  onChange={handleChange}
-                />
-                <label htmlFor="password" className="account__label">
-                  <span>Password</span>
-                </label>
-              </div>
+              <Formik
+                initialValues={{
+                  password: "",
+                  newPassword: "",
+                }}
+                validationSchema={PasswordSchema}
+                onSubmit={(value) => {
+                  changePassword(
+                    user.email,
+                    value.password,
+                    value.newPassword,
+                    (field, text) => handleError(field, text),
+                    () => handleEdit("password")
+                  );
+                }}
+              >
+                <Form className="account__form">
+                  {errorInfo["password"].error && (
+                    <p className="account__error">
+                      {errorInfo["password"].text}{" "}
+                    </p>
+                  )}
+                  <Input
+                    name="password"
+                    label="Current password"
+                    type="password"
+                  />
+                  <Input
+                    name="newPassword"
+                    label="New password"
+                    type="password"
+                  />
 
-              <div className="account__buttons-container">
-                <button
-                  className="account__button account__button_type_cancel"
-                  onClick={() => {
-                    handleCancelChanges("password");
-                  }}
-                >
-                  Cancel
-                </button>
-                <button
-                  className="account__button account__button_type_success"
-                  onClick={() => handleEdit("password")}
-                >
-                  Save
-                </button>
-              </div>
+                  <div className="account__buttons-container">
+                    <button
+                      className="account__button account__button_type_cancel"
+                      onClick={() => {
+                        handleEdit("password");
+                      }}
+                      type="button"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="account__button account__button_type_success"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </Form>
+              </Formik>
             </>
           )}
         </div>

@@ -1,8 +1,9 @@
 .navbar {
-  width: 300px;
+  max-width: 300px;
   border-radius: 20px;
   box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.04),
     0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  width: 30%;
 }
 .navbar__header {
   padding: 15px;
@@ -22,9 +23,47 @@
 .navbar__item {
   padding: 15px;
   color: black;
+  cursor: pointer;
 }
 
 .active > .navbar__item {
   border-left: 2px solid #f7ca00;
   background-color: rgba(247, 202, 0, 0.1);
+}
+.navbar__return-section {
+  padding: 10px;
+  gap: 10px;
+  cursor: pointer;
+  display: none;
+}
+.navbar__return-icon {
+  transform: rotate(90deg);
+}
+.navbar__return-text {
+  font-size: 16px;
+  text-transform: capitalize;
+
+  font-weight: 600;
+}
+
+@media screen and (max-width: 720px) {
+  .navbar {
+    position: fixed;
+    max-width: 100%;
+    width: 100%;
+    background-color: white;
+    right: 0;
+    left: -100%;
+    bottom: 0;
+    top: 1px;
+    z-index: 100;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  .navbar_opened {
+    left: 0;
+  }
+  .navbar__return-section {
+    display: flex;
+  }
 }

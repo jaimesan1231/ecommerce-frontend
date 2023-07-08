@@ -4,13 +4,8 @@ import { AddressSchema } from "../../Schemas";
 import Input from "../Input/Input";
 import "./AddressPopup.css";
 import addIcon from "../../images/add.svg";
-import useUserStore from "../../store/userStore";
 
-const AddressPopup = ({ onClose }) => {
-  const addAddress = useUserStore((state) => state.addAddress);
-  const handleChange = () => {
-    console.log("aea");
-  };
+const AddressPopup = ({ onClose, data, onSubmit }) => {
   useEffect(() => {
     document.body.classList.add("no-overflow");
     return () => {
@@ -23,45 +18,30 @@ const AddressPopup = ({ onClose }) => {
         <h2 className="popup__title">Add a new address</h2>
         <Formik
           initialValues={{
-            country: "",
-            name: "",
-            address: "",
-            city: "",
-            state: "",
-            zip: "",
-            phone: "",
+            country: data ? data.country : "",
+            name: data ? data.name : "",
+            address: data ? data.address : "",
+            city: data ? data.city : "",
+            state: data ? data.state : "",
+            zip: data ? data.zip : "",
+            phone: data ? data.phone : "",
           }}
           validationSchema={AddressSchema}
           onSubmit={(value) => {
-            console.log(value);
-            addAddress(value);
+            onSubmit(value);
+            onClose();
           }}
         >
           <Form noValidate className="popup__form">
-            <Input name="country" label="Country" onChange={handleChange} />
-
-            <Input name="name" label="Full name" onChange={handleChange} />
-
-            <Input
-              name="address"
-              label="Street address"
-              onChange={handleChange}
-            />
-
-            <Input name="city" label="City" onChange={handleChange} />
-
-            <Input
-              name="state"
-              label="State / Province / Region"
-              onChange={handleChange}
-            />
-
-            <Input name="zip" label="Zip code" onChange={handleChange} />
-
-            <Input name="phone" label="Phone number" onChange={handleChange} />
-
+            <Input name="country" label="Country" />
+            <Input name="name" label="Full name" />
+            <Input name="address" label="Street address" />
+            <Input name="city" label="City" />
+            <Input name="state" label="State / Province / Region" />
+            <Input name="zip" label="Zip code" />
+            <Input name="phone" label="Phone number" />
             <button type="submit" className="popup__button">
-              Add address
+              {data ? "edit address" : "add address"}
             </button>
           </Form>
         </Formik>

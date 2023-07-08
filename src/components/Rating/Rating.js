@@ -11,13 +11,13 @@ const Rating = ({ rating }) => {
   const emptyStars = 5 - fullStars - halfStars;
   const stars = [];
   for (let i = 0; i < fullStars; i++) {
-    stars.push(<img src={fullStar} alt="estrella completa" />);
+    stars.push(<img key={`full-${i}`} src={fullStar} alt="full star" />);
   }
   if (halfStars) {
-    stars.push(<img src={halfStar} alt="estrella completa" />);
+    stars.push(<img key="half" src={halfStar} alt="half star" />);
   }
   for (let i = 0; i < emptyStars; i++) {
-    stars.push(<img src={emptyStar} alt="estrella completa" />);
+    stars.push(<img key={`empty-${i}`} src={emptyStar} alt="empty star" />);
   }
   return (
     <div className="rating">

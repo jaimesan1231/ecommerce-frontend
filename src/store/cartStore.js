@@ -41,7 +41,6 @@ const useCartStore = create((set, get) => ({
       set(() => ({
         cart: newCart,
       }));
-      console.log("aeaaaaaaa");
     } else {
       const price = product.price * quantity;
       const newProduct = {
@@ -61,7 +60,6 @@ const useCartStore = create((set, get) => ({
       set(() => ({
         cart: newCart,
       }));
-      console.log("aeaaaaaaaa 2");
     }
   },
   removeFromCart: (productId) => {

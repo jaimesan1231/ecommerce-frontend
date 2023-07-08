@@ -1,17 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import searchIcon from "../../images/search.svg";
-import "./SearchBar.css";
-import SearchList from "../SearchList/SearchList";
-
-import { Hits, InstantSearch, SearchBox } from "react-instantsearch-dom";
 import SearchResult from "../SearchResult/SearchResult";
 import algoliasearch from "algoliasearch/lite";
 import { useLocation, useNavigate } from "react-router-dom";
-
-const searchClient = algoliasearch(
-  "GM7KQQCHUP",
-  "5eb81998efab935099fdb8ae52f05cb0"
-);
+import "./SearchBar.css";
+import { ALGOLIA_API_KEY, ALGOLIA_APP_ID } from "../../config";
+const searchClient = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_API_KEY);
 const index = searchClient.initIndex("ecommerce-products");
 const SearchBar = () => {
   const inputRef = useRef(null);
@@ -20,7 +14,6 @@ const SearchBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const handleClick = (productId) => {
-    console.log("aea");
     navigate(`/product/${productId}`);
   };
   const performSearch = async (value) => {
@@ -31,24 +24,18 @@ const SearchBar = () => {
       const { title, id, description, image } = hit;
       return { title, id, description, image };
     });
-    console.log(results);
     setResults(results);
   };
 
   const handleFocus = (e) => {
-    console.log(e);
     setIsOpen(true);
   };
   const handleBlur = (e) => {
-    console.log(e);
-
     setIsOpen(false);
   };
   const handleSearch = (e) => {
     const { value } = e.target;
     value === "" ? setResults(null) : performSearch(inputRef.current.value);
-    console.log("se busco");
-    console.log(isOpen);
   };
   useEffect(() => {
     inputRef.current.value = "";

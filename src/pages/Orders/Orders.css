@@ -1,9 +1,10 @@
 .orders {
-  width: 95%;
+  width: 98%;
   margin: 50px auto;
   gap: 20px;
   max-width: 1280px;
   display: flex;
+  position: relative;
 }
 
 .orders__container {
@@ -18,15 +19,20 @@
   gap: 20px;
   align-items: center;
 }
+.orders__header {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+}
 .orders__title {
   align-self: flex-start;
+  justify-self: center;
 }
 .orders__image {
   width: 150px;
 }
 .orders__button {
   border-radius: 20px;
-
   border: none;
   cursor: pointer;
   background-color: #f7ca00;
@@ -42,4 +48,47 @@
 }
 .orders__button:hover {
   opacity: 0.8;
+}
+.orders__menu {
+  width: 80px;
+  font-size: 16px;
+  padding: 5px 20px;
+  background-color: #f7ca00;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: none;
+  justify-self: start;
+  height: max-content;
+}
+.orders__menu:hover {
+  opacity: 0.8;
+}
+.orders__empty-title {
+  text-align: center;
+}
+.orders__empty-subtitle {
+  text-align: center;
+}
+@media screen and (max-width: 720px) {
+  .orders {
+    width: 100%;
+    margin: 0;
+  }
+  .orders__header {
+    grid-template-columns: 80px auto;
+  }
+  .orders__menu {
+    display: block;
+  }
+  .orders__container {
+    box-shadow: none;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .orders__container {
+    padding: 30px 10px;
+  }
 }

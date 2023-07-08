@@ -51,14 +51,8 @@
 .checkout__form {
   width: 100%;
   display: grid;
-
   gap: 18px;
   grid-template-columns: 1fr 1fr;
-  /* grid-template-areas:
-    "email ."
-    "name *"
-    "number *"
-    "expiry cvc"; */
 }
 .checkout__form .input__section:nth-child(1),
 .checkout__form .input__section:nth-child(2),
@@ -92,7 +86,8 @@
 .checkout__subtotal {
   display: flex;
   justify-content: space-between;
-  padding: 20px 0;
+  padding: 10px;
+  grid-column: span 2;
 }
 .checkout__subtotal p {
   font-weight: 500;
@@ -100,12 +95,13 @@
 
 .checkout__button {
   width: 100%;
-  padding: 10px;
+  padding: 15px;
   border: none;
   background-color: #f7ca00;
-  border-radius: 20px;
+  border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
+  grid-column: span 2;
 }
 .checkout__address-list {
   display: flex;
@@ -122,4 +118,43 @@
 }
 .checkout__address-button:hover {
   text-decoration: underline;
+}
+.checkout__address-error {
+  color: #c33743;
+  background-color: #f8c9cb;
+  padding: 5px;
+  font-size: 14px;
+  width: 100%;
+  text-align: center;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+@media screen and (max-width: 900px) {
+  .checkout {
+    grid-template-columns: 1fr;
+  }
+  .checkout__payment-section {
+    grid-column: 1;
+    grid-row: 3;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .checkout {
+    grid-template-columns: 1fr;
+    width: 98%;
+  }
+  .checkout__payment-section {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  .checkout__section-title {
+    font-size: 20px;
+    text-align: center;
+  }
+  .checkout__cart-section {
+    padding: 0 10px;
+  }
 }

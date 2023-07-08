@@ -34,6 +34,7 @@ const Category = () => {
       }
     };
     getProductByCategory();
+    window.scrollTo(0, 0);
   }, [category]);
   useEffect(() => {
     if (order === "") {
@@ -68,10 +69,6 @@ const Category = () => {
               {
                 value: "priceDesc",
                 text: "Price: High to Low",
-              },
-              {
-                value: "customer",
-                text: "Customer Review",
               },
             ]}
             onSelect={(order) => setOrder(order)}

@@ -4,8 +4,34 @@
   gap: 20px;
   max-width: 1280px;
   display: flex;
+  position: relative;
 }
-
+.account__header {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.account__menu {
+  width: 80px;
+  font-size: 16px;
+  padding: 5px 20px;
+  background-color: #f7ca00;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: none;
+  justify-self: start;
+  height: max-content;
+  align-self: center;
+}
+.account__menu:hover {
+  opacity: 0.8;
+}
+.account__title {
+  justify-self: center;
+  text-align: center;
+}
 .account__info {
   flex: 1;
   padding: 30px;
@@ -40,6 +66,7 @@
 .account__button:hover {
   opacity: 0.8;
 }
+
 .account__edit-title {
   grid-column: span 2;
 }
@@ -83,11 +110,11 @@
 }
 
 .account__buttons-container {
-  grid-column: span 2;
   display: grid;
   gap: 10px;
-  justify-self: end;
   grid-template-columns: 100px 100px;
+  margin-top: 5px;
+  align-self: flex-end;
 }
 .account__button_type_cancel {
   background-color: #fff;
@@ -99,4 +126,42 @@
   background-color: #f7ca00;
   padding: 10px;
   font-weight: 700;
+}
+
+.account__form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  grid-column: span 2;
+}
+.account__error {
+  color: #c33743;
+  background-color: #f8c9cb;
+  padding: 5px;
+  font-size: 14px;
+  width: 100%;
+  text-align: center;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+@media screen and (max-width: 720px) {
+  .account {
+    width: 100%;
+    margin: 0;
+  }
+  .account__header {
+    grid-template-columns: 80px auto;
+  }
+  .account__menu {
+    display: block;
+  }
+  .account__info {
+    box-shadow: none;
+  }
+}
+@media screen and (max-width: 520px) {
+  .account__info {
+    padding: 30px 10px;
+  }
 }

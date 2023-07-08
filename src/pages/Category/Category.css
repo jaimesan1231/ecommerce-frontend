@@ -2,5 +2,8 @@
   text-transform: capitalize;
   width: 90%;
   margin: 10px auto;
-  font-size: 28px;
+  font-size: 36px;
+  background: #f7ca00;
+  padding: 14px;
+  text-align: center;
 }

@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import accountIcon from "../../images/account.svg";
 import cartIcon from "../../images/cart.svg";
 import menuIcon from "../../images/menu.svg";
 import { useLocation, useNavigate } from "react-router-dom";
-import { AppContext } from "../../context/AppContext";
 import { Link } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
 import "./Header.css";
@@ -22,18 +21,6 @@ const Header = () => {
   const [categories, setCategories] = useState();
   const navigate = useNavigate();
   const location = useLocation();
-  const selectCategory = (category) => {
-    navigate(`/category/${category}`);
-    handleToggleSidebar();
-  };
-
-  const handleToggleMenu = () => {
-    setOpenMenu(!openMenu);
-  };
-  const handleToggleSidebar = () => {
-    setOpenSidebar(!openSidebar);
-    document.body.classList.toggle("no-overflow");
-  };
   useEffect(() => {
     const getCategories = async () => {
       try {
@@ -45,8 +32,28 @@ const Header = () => {
       }
     };
     getCategories();
-    // getCategories().then((categories) => setCategories(categories));
   }, []);
+  const navigateAccount = () => {
+    navigate("/account", {
+      state: {
+        open: true,
+      },
+    });
+  };
+  const selectCategory = (category) => {
+    handleToggleSidebar();
+    navigate(`/category/${category}`);
+  };
+
+  const handleToggleMenu = () => {
+    setOpenMenu((prevState) => !prevState);
+  };
+  const handleToggleSidebar = () => {
+    console.log("click");
+    setOpenSidebar((prevState) => !prevState);
+    document.body.classList.toggle("no-overflow");
+  };
+
   return (
     <div className="header">
       <Link to="/" className="header__logo-container">
@@ -60,11 +67,18 @@ const Header = () => {
         <p className="header__categories">Categories</p>
       </div>
       <SearchBar />
+      <img
+        src={accountIcon}
+        alt=""
+        className="header__icon_responsive"
+        onClick={navigateAccount}
+      />
       <div
         className="header__account-section header__button"
         onClick={handleToggleMenu}
       >
         <img src={accountIcon} alt="" className="header__icon" />
+
         <p className="header__account">{user ? user.name : "account"}</p>
 
         <ul

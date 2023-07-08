@@ -1,21 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Footer.css";
 
 const Footer = () => {
+  const [columnsOpened, setColumnsOpened] = useState({
+    know: false,
+    about: false,
+    services: false,
+    help: false,
+  });
+  const handleClick = (column) => {
+    setColumnsOpened((prevState) => ({
+      ...prevState,
+      [column]: !prevState[column],
+    }));
+  };
   return (
     <footer className="footer">
       <div className="footer__container">
         <div className="footer__columns">
           <div className="footer__column">
-            <h3 className="footer__title">Know Us</h3>
-            <p className="footer__description">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-              euismod libero vitae urna ultricies, et accumsan enim cursus.
+            <h3 className="footer__title" onClick={() => handleClick("know")}>
+              Know Us
+            </h3>
+            <p
+              className={`footer__description ${
+                columnsOpened.know && "column_opened"
+              }`}
+            >
+              At Multimart, we strive to provide an exceptional online shopping
+              experience. With quality products, fast shipping, and top-notch
+              customer support, we are your trusted destination for all your
+              shopping needs
             </p>
           </div>
           <div className="footer__column">
-            <h3 className="footer__title">About us</h3>
-            <ul className="footer__contact-list">
+            <h3 className="footer__title" onClick={() => handleClick("about")}>
+              About us
+            </h3>
+            <ul
+              className={`footer__contact-list ${
+                columnsOpened.about && "column_opened"
+              }`}
+            >
               <li>About Shopcart</li>
               <li>Careers</li>
               <li>News & Blog</li>
@@ -27,8 +53,17 @@ const Footer = () => {
             </ul>
           </div>
           <div className="footer__column">
-            <h3 className="footer__title">Services</h3>
-            <ul className="footer__contact-list">
+            <h3
+              className="footer__title"
+              onClick={() => handleClick("services")}
+            >
+              Services
+            </h3>
+            <ul
+              className={`footer__contact-list ${
+                columnsOpened.services && "column_opened"
+              }`}
+            >
               <li>Gift Card</li>
               <li>Mobile App</li>
               <li>Shipping & Delivery</li>
@@ -37,8 +72,14 @@ const Footer = () => {
             </ul>
           </div>
           <div className="footer__column">
-            <h3 className="footer__title">Help</h3>
-            <ul className="footer__contact-list">
+            <h3 className="footer__title" onClick={() => handleClick("help")}>
+              Help
+            </h3>
+            <ul
+              className={`footer__contact-list ${
+                columnsOpened.help && "column_opened"
+              }`}
+            >
               <li>Shopcart Help</li>
               <li>Returns</li>
               <li>Track Orders</li>

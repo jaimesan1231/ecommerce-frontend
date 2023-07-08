@@ -4,10 +4,8 @@ import { useSearchParams } from "react-router-dom";
 import ProductsGrid from "../../components/ProductsGrid/ProductsGrid";
 import "./SearchResults.css";
 import Dropdown from "../../components/Dropdown/Dropdown";
-const searchClient = algoliasearch(
-  "GM7KQQCHUP",
-  "5eb81998efab935099fdb8ae52f05cb0"
-);
+import { ALGOLIA_API_KEY, ALGOLIA_APP_ID } from "../../config";
+const searchClient = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_API_KEY);
 const index = searchClient.initIndex("ecommerce-products");
 const SearchResults = () => {
   const [results, setResults] = useState([]);
@@ -15,7 +13,6 @@ const SearchResults = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [order, setOrder] = useState("");
   const searchTerm = searchParms.get("search");
-  console.log(searchTerm);
   useEffect(() => {
     setIsLoading(true);
     const performSearch = async () => {
@@ -26,7 +23,6 @@ const SearchResults = () => {
         const { title, id, description, image, rating, price } = hit;
         return { title, id, description, image, rating, price };
       });
-      console.log(results);
       setResults(results);
       setIsLoading(false);
     };
@@ -65,10 +61,6 @@ const SearchResults = () => {
               {
                 value: "priceDesc",
                 text: "Price: High to Low",
-              },
-              {
-                value: "customer",
-                text: "Customer Review",
               },
             ]}
             onSelect={(order) => setOrder(order)}

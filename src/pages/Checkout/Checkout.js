@@ -13,36 +13,29 @@ import Loading from "../../components/Loading/Loading";
 const Checkout = () => {
   const cart = useCartStore((state) => state.cart);
   const user = useUserStore((state) => state.user);
+  const addOrder = useUserStore((state) => state.addOrder);
+  const addAddress = useUserStore((state) => state.addAddress);
   const [selectedAddress, setSelectedAddress] = useState("");
   const [openPopup, setOpenPopup] = useState(false);
   const [confirmOrder, setConfirmOrder] = useState(false);
+  const [addressError, setAddressError] = useState(false);
+
   useEffect(() => {
-    if (user.addresses) {
+    if (user.addresses?.length > 0) {
       setSelectedAddress(user.addresses[0].id);
     }
   }, []);
   const handleChangeAddress = (addressId) => {
     setSelectedAddress(addressId);
   };
-  const handleChange = () => {
-    console.log("aea");
-  };
-  const handleSubmit = () => {
-    setConfirmOrder(true);
-    setTimeout(() => {
-      console.log("termino los dos segundos");
-      setConfirmOrder(false);
-    }, 4000);
-  };
 
-  console.log(user);
   return (
     <div className="checkout">
       <div className="checkout__cart-section">
         <h2 className="checkout__section-title">Review Item And Shipping</h2>
         <ul className="checkout__items">
           {cart.items.map((item) => (
-            <CartItem item={item} />
+            <CartItem item={item} key={item.id} />
           ))}
         </ul>
       </div>
@@ -58,47 +51,52 @@ const Checkout = () => {
           }}
           validationSchema={PaymentSchema}
           onSubmit={(value) => {
-            console.log(value);
-            // addAddress(value);
+            if (selectedAddress !== "") {
+              const currentAddress = user.addresses.find(
+                (address) => address.id === selectedAddress
+              );
+              addOrder(currentAddress, value.card);
+              setConfirmOrder(true);
+            } else {
+              setAddressError(true);
+              setTimeout(() => {
+                setAddressError(false);
+              }, 4000);
+            }
           }}
         >
           <Form noValidate className="checkout__form">
-            <Input name="email" label="Email" onChange={handleChange} />
+            <Input name="email" label="Email" />
 
-            <Input
-              name="name"
-              label="Card Holder Name"
-              onChange={handleChange}
-            />
+            <Input name="name" label="Card Holder Name" />
 
-            <Input name="card" label="Card Number" onChange={handleChange} />
+            <Input name="card" label="Card Number" />
 
-            <Input
-              name="expiry"
-              label="Expiry"
-              onChange={handleChange}
-              placeholder="mm/aa"
-            />
+            <Input name="expiry" label="Expiry" placeholder="mm/yy" />
 
-            <Input name="cvc" label="CVC" onChange={handleChange} />
+            <Input name="cvc" label="CVC" />
+            <div className="checkout__subtotal">
+              <p>Sub Total</p>
+              <p>${cart.subTotal.toFixed(2)}</p>
+            </div>
+            <button className="checkout__button">
+              Pay ${cart.subTotal.toFixed(2)}
+            </button>
           </Form>
         </Formik>
-        <div className="checkout__subtotal">
-          <p>Sub Total</p>
-          <p>${cart.subTotal.toFixed(2)}</p>
-        </div>
-        <button className="checkout__button" onClick={handleSubmit}>
-          Pay ${cart.subTotal.toFixed(2)}
-        </button>
       </div>
 
       <div className="checkout__delivery-section">
         <h2 className="checkout__section-title">Delivery Information</h2>
+        {addressError && (
+          <p className="checkout__address-error">Select an address</p>
+        )}
         <div className="checkout__address-list">
           {user.addresses &&
             user.addresses.map((address, index) => (
               <AddressRadio
                 address={address}
+                key={address.id}
                 onChange={handleChangeAddress}
                 isSelected={selectedAddress === address.id ? true : false}
               />
@@ -110,7 +108,12 @@ const Checkout = () => {
             Add Address
           </button>
         </div>
-        {openPopup && <AddressPopup onClose={() => setOpenPopup(false)} />}
+        {openPopup && (
+          <AddressPopup
+            onClose={() => setOpenPopup(false)}
+            onSubmit={(values) => addAddress(values)}
+          />
+        )}
       </div>
       {confirmOrder && <Loading />}
     </div>

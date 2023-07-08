@@ -5,7 +5,11 @@
   max-width: 1280px;
   display: flex;
 }
-
+.addresses__header {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+}
 .addresses__container {
   flex: 1;
   padding: 30px;
@@ -19,17 +23,18 @@
 }
 .addresses__title {
   align-self: flex-start;
+  justify-self: center;
 }
 
 .addresses__info {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 10px;
 }
 .addresses__add {
   border: 3px dotted rgba(0, 0, 0, 0.3);
   height: 266px;
-  width: 320px;
+  width: 100%;
   border-radius: 8px;
   display: flex;
   justify-content: center;
@@ -42,4 +47,41 @@
 .addresses__add-icon {
   width: 60px;
   filter: grayscale(100%);
+}
+.addresses__menu {
+  width: 80px;
+  font-size: 16px;
+  padding: 5px 20px;
+  background-color: #f7ca00;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: none;
+  justify-self: start;
+  height: max-content;
+}
+.addresses__menu:hover {
+  opacity: 0.8;
+}
+@media screen and (max-width: 720px) {
+  .addresses {
+    width: 100%;
+    margin: 0;
+  }
+  .addresses__header {
+    grid-template-columns: 80px auto;
+  }
+  .addresses__menu {
+    display: block;
+  }
+  .addresses__container {
+    box-shadow: none;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .addresses__container {
+    padding: 30px 10px;
+  }
 }

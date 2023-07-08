@@ -22,18 +22,15 @@ const useAuthStateListener = () => {
             subTotal: 0,
           };
           const {
-            name,
-            lastname,
             cart = {
               items: [],
               subTotal: 0,
             },
           } = userData;
-          console.log(cart);
-          console.log(name, lastname);
+
           const mergedItems = [...cart.items, ...savedCart.items].reduce(
             (acc, item) => {
-              const foundItem = acc.find((i) => i.id == item.id);
+              const foundItem = acc.find((i) => i.id === item.id);
               if (foundItem) {
                 foundItem.quantity += item.quantity;
                 foundItem.price += item.price;
@@ -52,10 +49,9 @@ const useAuthStateListener = () => {
           };
           updateCart(user.uid, newCart);
           localStorage.removeItem("cart");
-          setUser({ ...userData, id: user.uid });
+          setUser({ ...userData, id: user.uid, email: user.email });
           setCart(newCart.cart);
         }
-        console.log("user is logged in", user);
       } else {
         const savedCart = JSON.parse(localStorage.getItem("cart")) || {
           items: [],
@@ -64,8 +60,6 @@ const useAuthStateListener = () => {
         localStorage.removeItem("token");
         setUser(null);
         setCart(savedCart);
-
-        console.log("user is logged out");
       }
     });
 

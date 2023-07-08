@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import "./AddressCard.css";
+import AddressPopup from "../AddressPopup/AddressPopup";
+import useUserStore from "../../store/userStore";
 
 const AddressCard = ({ address }) => {
+  const editAddress = useUserStore((state) => state.editAddress);
+  const deleteAddress = useUserStore((state) => state.deleteAddress);
+  const [openPopup, setOpenPopup] = useState(false);
+  const handleEditAddress = (values) => {
+    editAddress({
+      ...values,
+      id: address.id,
+    });
+  };
   return (
     <div className="address-card">
       <ul className="address-card__list">
@@ -13,9 +24,23 @@ const AddressCard = ({ address }) => {
       </ul>
 
       <div className="address-card__buttons">
-        <p className="address-card__button">Edit</p>
-        <p className="address-card__button">Remove</p>
+        <p className="address-card__button" onClick={() => setOpenPopup(true)}>
+          Edit
+        </p>
+        <p
+          className="address-card__button"
+          onClick={() => deleteAddress(address.id)}
+        >
+          Remove
+        </p>
       </div>
+      {openPopup && (
+        <AddressPopup
+          onClose={() => setOpenPopup(false)}
+          data={address}
+          onSubmit={(values) => handleEditAddress(values)}
+        />
+      )}
     </div>
   );
 };

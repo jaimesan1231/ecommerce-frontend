@@ -2,7 +2,7 @@
   border: 1px solid rgba(0, 0, 0, 0.3);
   height: 266px;
   padding: 15px;
-  width: 320px;
+  width: 100%;
   border-radius: 8px;
   border: 1px solid rgba(0, 0, 0, 0.3);
   display: flex;
@@ -18,4 +18,8 @@
 .address-card__buttons {
   display: flex;
   gap: 15px;
+}
+
+.address-card__button {
+  cursor: pointer;
 }

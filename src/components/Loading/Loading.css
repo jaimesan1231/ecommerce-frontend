@@ -14,9 +14,11 @@
 .loading__title {
   font-size: 56px;
   text-transform: uppercase;
+  text-align: center;
 }
 .loading__subtitle {
   font-size: 24px;
+  text-align: center;
 }
 .loading__circle-preloader {
   display: block;
@@ -33,9 +35,34 @@
 
   animation: spin 1s infinite linear;
 }
-
+.loading__button {
+  background-color: #f7ca00;
+  border: none;
+  padding: 15px 20px;
+  font-size: 18px;
+  text-transform: capitalize;
+  border-radius: 16px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+}
+.loading__button:hover {
+  opacity: 0.8;
+}
 @keyframes spin {
   100% {
     transform: rotate(360deg);
+  }
+}
+@media screen and (max-width: 520px) {
+  .loading__title {
+    font-size: 32px;
+  }
+  .loading__subtitle {
+    font-size: 16px;
+    text-align: center;
+  }
+  .loading__button {
+    font-size: 14px;
   }
 }

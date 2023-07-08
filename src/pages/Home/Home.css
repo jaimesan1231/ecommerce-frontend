@@ -62,6 +62,9 @@
   }
 }
 @media screen and (max-width: 576px) {
+  .home__title {
+    font-size: 26px;
+  }
   .banner {
     width: 100%;
   }

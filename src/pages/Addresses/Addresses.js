@@ -8,14 +8,22 @@ import useUserStore from "../../store/userStore";
 
 const Addresses = () => {
   const user = useUserStore((state) => state.user);
+  const addAddress = useUserStore((state) => state.addAddress);
   const [openPopup, setOpenPopup] = useState(false);
+  const [openNavbar, setOpenNavbar] = useState(false);
+  const handleNavbar = () => {
+    setOpenNavbar(!openNavbar);
+  };
 
   return (
     <div className="addresses">
-      <Navbar />
+      <Navbar isOpen={openNavbar} onClose={handleNavbar} />
       <div className="addresses__container">
-        <div>
-          <h2 className="addresses__title">Your Addresses</h2>
+        <div className="addresses__header">
+          <button onClick={handleNavbar} className="addresses__menu">
+            Menu
+          </button>
+          <h2 className="addresses__title">Addresses</h2>
         </div>
         <div className="addresses__info">
           <div className="addresses__add" onClick={() => setOpenPopup(true)}>
@@ -24,10 +32,17 @@ const Addresses = () => {
           </div>
           {user &&
             user.addresses &&
-            user.addresses.map((address) => <AddressCard address={address} />)}
+            user.addresses.map((address) => (
+              <AddressCard address={address} key={address.id} />
+            ))}
         </div>
       </div>
-      {openPopup && <AddressPopup onClose={() => setOpenPopup(false)} />}
+      {openPopup && (
+        <AddressPopup
+          onClose={() => setOpenPopup(false)}
+          onSubmit={(values) => addAddress(values)}
+        />
+      )}
     </div>
   );
 };
