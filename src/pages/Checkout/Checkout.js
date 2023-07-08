@@ -93,7 +93,7 @@ const Checkout = () => {
         )}
         <div className="checkout__address-list">
           {user.addresses &&
-            user.addresses.map((address, index) => (
+            user.addresses.map((address) => (
               <AddressRadio
                 address={address}
                 key={address.id}

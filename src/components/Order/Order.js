@@ -12,7 +12,7 @@ const Order = ({ order }) => {
     <div className="order__container">
       <div className="order__header">
         <span className="order__date">{order.date}</span>
-        <span className="order__subtotal">${order.subTotal}</span>
+        <span className="order__subtotal">${order.subTotal.toFixed(2)}</span>
         <span className="order__id">Order #{order.id}</span>
         <span className="order__count">
           {order.items.length > 1 ? order.items.length + " items" : "1 item"}

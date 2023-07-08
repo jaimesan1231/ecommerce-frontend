@@ -1,70 +1,61 @@
-# Getting Started with Create React App
+# Multimart Ecommerce Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+Welcome to the Multimart Ecommerce Project! This is a front-end ecommerce application that allows users to browse and purchase a wide range of products. The project incorporates various features and technologies to provide a shopping experience. Here is an overview of the project's functionalities:
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **Product Catalog:** Browse through a diverse catalog of products, including detailed descriptions, pricing information, and product images.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Shopping Cart:** Add products to your shopping cart, review the cart contents, and easily manage quantities.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Product Search:** Utilize a powerful search functionality with Algolia integration to quickly find specific products based on keywords or product attributes.
 
-### `npm test`
+- **Product Filtering:** Explore products by different categories, such as brand, price range, or other custom attributes, leveraging the Firestore database.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **User Authentication:** Sign up and log in securely using Firebase Authentication, providing personalized experiences and enabling user-specific functionality.
 
-### `npm run build`
+- **Checkout & Payment:** Simulate the checkout process by proceeding to a secure payment gateway and completing a purchase using simulated payment methods.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **User Profile:** Update user information, manage saved addresses for shipping, and view order history.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Technologies Used
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Front-end: React.js, Zustand (state management), Algolia Search API, Firebase (Firebase Auth, Firestore)
+- Payment Integration: Simulated payment gateway
+- Styling: CSS
 
-### `npm run eject`
+## Screenshots
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Home Page
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![Home Page](/src/images/home.JPG)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Search Bar
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+![Searchbar](/src/images/searchbar.JPG)
 
-## Learn More
+### Cart
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![Cart](/src/images/cart.JPG)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Checkout
 
-### Code Splitting
+![Checkout](/src/images/checkout.JPG)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Orders
 
-### Analyzing the Bundle Size
+![Orders](/src/images/orders.JPG)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Getting Started
 
-### Making a Progressive Web App
+To run the project locally, follow these steps:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+1. Clone the repository: git clone https://github.com/jaimesan1231/ecommerce-frontend
+2. Install dependencies: npm install
+3. Configure Firebase: Set up a Firebase project and update the Firebase configuration in the project.
+4. Set up Algolia: Obtain an Algolia account, create an index, and update the Algolia configuration in the project.
+5. Start the development server: npm start
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Links

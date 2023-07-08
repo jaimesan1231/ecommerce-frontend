@@ -9,8 +9,6 @@
   flex-direction: column;
   justify-content: space-between;
 }
-.address-card__list {
-}
 .address-card__item {
   font-size: 14px;
   line-height: 20px;
