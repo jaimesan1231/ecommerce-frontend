@@ -57,7 +57,7 @@ const Header = () => {
   return (
     <div className="header">
       <Link to="/" className="header__logo-container">
-        <img src={Logo} alt="" className="header__logo" />
+        <img src={Logo} alt="Multimart logo" className="header__logo" />
       </Link>
       <div
         className="header__menu header__button"
@@ -69,7 +69,7 @@ const Header = () => {
       <SearchBar />
       <img
         src={accountIcon}
-        alt=""
+        alt="account icon"
         className="header__icon_responsive"
         onClick={navigateAccount}
       />
@@ -77,7 +77,7 @@ const Header = () => {
         className="header__account-section header__button"
         onClick={handleToggleMenu}
       >
-        <img src={accountIcon} alt="" className="header__icon" />
+        <img src={accountIcon} alt="account icon" className="header__icon" />
 
         <p className="header__account">{user ? user.name : "account"}</p>
 

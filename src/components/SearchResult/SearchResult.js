@@ -17,7 +17,11 @@ const SearchResult = ({ result, onClick, searchTerm }) => {
           onMouseDown={() => onClick(item.id)}
           key={item.id}
         >
-          <img src={item.image} alt="" className="search-result__image" />
+          <img
+            src={item.image}
+            alt={item.title}
+            className="search-result__image"
+          />
           <div className="search-result__info">
             <p className="search-result__title">{item.title}</p>
             <p className="search-result__description">{item.description}</p>
@@ -26,7 +30,7 @@ const SearchResult = ({ result, onClick, searchTerm }) => {
       ))}
       {result.length === 5 && (
         <div className="search-result__link" onMouseDown={handleSubmit}>
-          <img src={searchIcon} alt="" />
+          <img src={searchIcon} alt="search icon" />
           <p className="search-result__all">search all "{`${searchTerm}`}"</p>
         </div>
       )}

@@ -27,7 +27,7 @@ const Addresses = () => {
         </div>
         <div className="addresses__info">
           <div className="addresses__add" onClick={() => setOpenPopup(true)}>
-            <img src={addIcon} alt="" className="addresses__add-icon" />
+            <img src={addIcon} alt="add icon" className="addresses__add-icon" />
             <p>Add Address</p>
           </div>
           {user &&

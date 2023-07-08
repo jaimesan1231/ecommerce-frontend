@@ -16,7 +16,7 @@ const Navbar = ({ isOpen, onClose }) => {
   return (
     <div className={`navbar ${isOpen && "navbar_opened"}`}>
       <div className="navbar__return-section" onClick={onClose}>
-        <img src={arrow} alt="" className="navbar__return-icon" />
+        <img src={arrow} alt="arrow icon" className="navbar__return-icon" />
         <p className="navbar__return-text">return</p>
       </div>
       <div className="navbar__header">

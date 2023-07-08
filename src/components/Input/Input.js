@@ -37,7 +37,7 @@ const Input = ({ name, label, onChange, placeholder, type = "text" }) => {
         {type === "password" && (
           <img
             src={eyeIcon}
-            alt=""
+            alt="eye icon"
             className="input__icon"
             onClick={handleVisibleInput}
           />

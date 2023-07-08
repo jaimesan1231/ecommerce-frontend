@@ -33,7 +33,7 @@ const Orders = () => {
             .map((order) => <Order order={order} key={order.id} />)
         ) : (
           <>
-            <img src={emptyBox} alt="" className="orders__image" />
+            <img src={emptyBox} alt="empty box" className="orders__image" />
             <h3 className="orders__empty-title">
               You currently have no orders
             </h3>

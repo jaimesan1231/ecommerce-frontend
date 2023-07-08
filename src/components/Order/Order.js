@@ -28,7 +28,7 @@ const Order = ({ order }) => {
           {openDetails ? "Hide" : "Show"} Details{" "}
           <img
             src={arrow}
-            alt=""
+            alt="arrow icon"
             className={`${openDetails && "order__button_opened"}`}
           />
         </button>

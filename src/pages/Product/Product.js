@@ -55,7 +55,11 @@ const Product = () => {
       {currentProduct ? (
         <div className="product">
           <div className="product__image-container">
-            <img src={currentProduct.image} alt="" className="product__image" />
+            <img
+              src={currentProduct.image}
+              alt={currentProduct.title}
+              className="product__image"
+            />
           </div>
 
           <h2 className="product__title">{currentProduct.title}</h2>
@@ -65,11 +69,11 @@ const Product = () => {
           <div className="product__counter-section">
             <div className="counter">
               <button className="counter__button" onClick={decreaseQuantity}>
-                <img src={minusIcon} alt="" />
+                <img src={minusIcon} alt="minus icon" />
               </button>
               {quantity}
               <button className="counter__button" onClick={increaseQuantity}>
-                <img src={addIcon} alt="" />
+                <img src={addIcon} alt="add icon" />
               </button>
             </div>
             <span> Only 20 items left</span>
@@ -78,9 +82,9 @@ const Product = () => {
             Add to Cart
           </button>
           <div className="product__delivery">
-            <img src={delivery} alt="" />
+            <img src={delivery} alt="delivery icon" />
             <span>Free Delivery</span>
-            <img src={returnDelivery} alt="" />
+            <img src={returnDelivery} alt="return delivery icon" />
             <span>Free 30 days Delivery Returns</span>
           </div>
         </div>

@@ -65,7 +65,7 @@ const SearchBar = () => {
         onFocus={handleFocus}
       />
       <button type="submit" className="searchbar__button">
-        <img src={searchIcon} alt="" />
+        <img src={searchIcon} alt="search icon" />
       </button>
     </div>
   );

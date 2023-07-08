@@ -27,7 +27,11 @@ const Home = () => {
             Discover our amazing deals and high-quality products
           </p>
         </div>
-        <img src={bannerImg} alt="" className="banner__image" />
+        <img
+          src={bannerImg}
+          alt="variety of products "
+          className="banner__image"
+        />
       </div>
       <h2 className="home__title">Weekly Popular Products</h2>
       <ProductsGrid data={products} isLoading={isLoading} />

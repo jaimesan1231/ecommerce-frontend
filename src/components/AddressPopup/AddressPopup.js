@@ -47,7 +47,7 @@ const AddressPopup = ({ onClose, data, onSubmit }) => {
         </Formik>
         <img
           src={addIcon}
-          alt=""
+          alt="add icon"
           className="popup__close-icon"
           onClick={onClose}
         />

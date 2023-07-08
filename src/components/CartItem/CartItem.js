@@ -7,7 +7,7 @@ const CartItem = ({ item, cart }) => {
   const { title, price, image, quantity } = item;
   return (
     <li className="item">
-      <img src={image} alt="" className="item__image" />
+      <img src={image} alt={title} className="item__image" />
 
       <p className="item__title">{title}</p>
       <p className="item__quantity">Quantity: {quantity}</p>
